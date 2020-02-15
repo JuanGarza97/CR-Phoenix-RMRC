@@ -1,1 +1,1 @@
-Code developed by students for the RMRC comptetition
+Code for the Raspberry
