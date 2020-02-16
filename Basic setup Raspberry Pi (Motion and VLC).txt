@@ -1,0 +1,30 @@
+			--Motion--
+
+sudo apt-get install motion
+
+sudo nano /etc/motion/motion.conf
+	*edit in file*
+		widht 720, width 480
+		framerate 25
+		quality 80
+		stream_quality 80
+		stream_maxrate 30
+		stream_localhost off
+		webcontrol_localhost off
+		(add at the end of the file) camera /etc/motion/camera1.conf
+
+sudo motion -n
+
+
+			--Audio with vlc--
+
+sudo apt-get remove pulseaudio
+
+sudo apt-get alsa-utils
+
+*To recieve audio*
+	cvlc http://ip:port
+
+*To stream audio*
+	cvlc alsa://hw:1,0 --sout '#transcode{acodec=mp3,ab=128,channels=,samplerate=44100):http{mux=mp3,dts=:8080/}' --no-sout-all --sout-keep
+
