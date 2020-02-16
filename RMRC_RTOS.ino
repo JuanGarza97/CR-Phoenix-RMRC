@@ -18,9 +18,10 @@
 #define DXL_BUS_SERIAL1 1  //Dynamixel on Serial1(USART1)  <-OpenCM9.04
 
 #define amountOfServos 6
+#define min_speed 0
 
 uint16 pos_servo[amountOfServos] = {190, 210, 512, 500, 230, 813};
-
+uint8 motor[4] = {2, 3, 4, 5};
 uint16 sensorvalue = 0;
 uint8 motor_speed = 200;
 uint8 servo_speed = 10;
@@ -39,6 +40,11 @@ void setup(){
     Dxl.goalSpeed(i, 400);
     Dxl.jointMode(i);
     Dxl.goalPosition(i, pos_servo[i - 1]);
+  }
+  
+  for(uint8 i = 0; i < 4; i++)
+  {
+    pinMode(motor[i], OUTPUT);
   }
   //pinMode(0, INPUT_ANALOG);
   xTaskCreate( vUartTask, ( signed char * ) "Uart", configMINIMAL_STACK_SIZE, NULL, 1, NULL );
