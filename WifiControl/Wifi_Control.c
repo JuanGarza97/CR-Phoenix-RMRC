@@ -1,15 +1,3 @@
-/* A simple client program to interact with the myServer.c program on the Raspberry.
-myClient.c
-D. Thiebaut
-Adapted from http://www.cs.rpi.edu/~moorthy/Courses/os98/Pgms/socket.html
-The port number used in 51717.
-This code is compiled and run on the Macbook laptop as follows:
-   
-    g++ -o myClient myClient.c 
-    ./myClient
-
-
-*/
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
