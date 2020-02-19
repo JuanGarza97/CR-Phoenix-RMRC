@@ -141,6 +141,7 @@ void *readInput(void *param)
   pthread_mutex_unlock(&wifi_mutex);  
   while(running)
   {
+    printf ("Write 3 char to send");
     scanf("%s", &c);
     for(uint8_t i = 0; i < strlen(c); i++)
     {
