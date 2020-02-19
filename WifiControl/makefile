@@ -1,2 +1,2 @@
 all:
-	gcc Wifi_Transmit.c -o wifiTransmit -lpthread
+	gcc Wifi_Control.c -o wifiControl -lpthread
