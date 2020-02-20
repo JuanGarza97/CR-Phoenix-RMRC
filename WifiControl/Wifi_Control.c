@@ -151,8 +151,8 @@ void *readInput(void *param)
     pthread_mutex_lock(&wifi_mutex);
     pthread_cond_signal(&readySend);    
     pthread_mutex_unlock(&wifi_mutex);
-
   }
+  pthread_exit(NULL);
 }
 
 
