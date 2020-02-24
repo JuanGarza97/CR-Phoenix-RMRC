@@ -81,7 +81,7 @@ void *connectionThread( void *parameter )
         error( (char*)( "ERROR opening socket") );
 
   
-    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, 
+    if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR /* | SO_REUSEPORT*/, 
                                                   &opt, sizeof(opt))) 
     { 
         perror("setsockopt"); 
