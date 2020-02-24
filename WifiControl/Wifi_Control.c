@@ -29,9 +29,9 @@ void error(char *msg) {
     exit(0);
 }
 
-void *sendData( void *parameter ) {
+void *sendData(void *idp) {
   int n;
-
+  
   pthread_mutex_lock(&wifi_mutex);
   pthread_cond_wait(&connection, &wifi_mutex);
   pthread_mutex_unlock(&wifi_mutex);
@@ -48,7 +48,7 @@ void *sendData( void *parameter ) {
   pthread_exit(NULL);
 }
 
-void *getData( void *parameter ) {
+void *getData(void *idp) {
   
   int n;
   
@@ -69,8 +69,9 @@ void *getData( void *parameter ) {
   pthread_exit(NULL);
 }
 
-void *connectionThread( void *parameter )
+void *connectionThread(void *idp)
 {
+   
     struct sockaddr_in serv_addr;
     int opt = 1; 
     int addrlen = sizeof(serv_addr); 
@@ -117,8 +118,9 @@ void *connectionThread( void *parameter )
 
 }
 
-void *control(void *parameter)
+void *control(void *idp)
 {
+  
   pthread_mutex_lock(&wifi_mutex);
   pthread_cond_wait(&connection, &wifi_mutex);
   pthread_mutex_unlock(&wifi_mutex);  
@@ -133,9 +135,10 @@ void *control(void *parameter)
   pthread_exit(NULL);
 }
 
-void *readInput(void *param)
+void *readInput(void *idp)
 {
   char c[3];
+  
   pthread_mutex_lock(&wifi_mutex);
   pthread_cond_wait(&connection, &wifi_mutex);
   pthread_mutex_unlock(&wifi_mutex);  
@@ -156,12 +159,11 @@ void *readInput(void *param)
 }
 
 
-int main(int argc, char *argv[])
+int main()
 {
     
     
   pthread_t threads[5];
-  pthread_attr_t attr;
 
   /* Initialize mutex and condition variable objects */
   pthread_mutex_init(&wifi_mutex, NULL);
@@ -169,22 +171,19 @@ int main(int argc, char *argv[])
   pthread_cond_init (&received, NULL);
   pthread_cond_init (&readySend, NULL);
  
-  pthread_attr_init(&attr);
-  pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
   
-  pthread_create(&threads[0], &attr, connectionThread, (void *)0);
-  pthread_create(&threads[1], &attr, getData, (void *)1);
-  pthread_create(&threads[2], &attr, sendData, (void *)2);
-  pthread_create(&threads[3], &attr, control, (void *)3);
-  pthread_create(&threads[4], &attr, readInput, (void *)4);
+  pthread_create(&threads[0], NULL, connectionThread, (void *)0);
+  pthread_create(&threads[1], NULL, getData, (void *)1);
+  pthread_create(&threads[2], NULL, sendData, (void *)2);
+  pthread_create(&threads[3], NULL, control, (void *)3);
+  pthread_create(&threads[4], NULL, readInput, (void *)4);
 
-  for (int i = 0; i < 5; i++) {
+  for (uint8_t i = 0; i < 5; i++) {
     pthread_join(threads[i], NULL);
   }
   
   close( sockfd );
   
-  pthread_attr_destroy(&attr);
   pthread_mutex_destroy(&wifi_mutex);
   pthread_cond_destroy(&connection);
   pthread_cond_destroy(&received);
