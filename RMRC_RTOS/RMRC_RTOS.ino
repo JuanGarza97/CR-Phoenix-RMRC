@@ -78,27 +78,27 @@ void vMotorTask( void *pvParameters )
         case 0:
           for(uint8 i = 0; i < 4; i++)
           {
-            digitalWrite(motor[i], 0);
+            analogWrite(motor[i], 0);
           }
         break;
         case 1:
           for(uint8 i = 0; i < 4; i++)
           {
-            digitalWrite(motor[i], motor_speed);
+            analogWrite(motor[i], motor_speed);
           }
         break;
         case 2:
           for(uint8 i = 0; i < 2; i++)
           {
-            digitalWrite(motor[i], motor_speed / 2);
-            digitalWrite(motor[i + 2], -motor_speed / 2);
+            analogWrite(motor[i], motor_speed / 2);
+            analogWrite(motor[i + 2], -motor_speed / 2);
           }
         break;
         case 3:
           for(uint8 i = 0; i < 2; i++)
           {
-            digitalWrite(motor[i], -motor_speed / 2);
-            digitalWrite(motor[i + 2], motor_speed / 2);
+            analogWrite(motor[i], -motor_speed / 2);
+            analogWrite(motor[i + 2], motor_speed / 2);
           }
         break;
       }
